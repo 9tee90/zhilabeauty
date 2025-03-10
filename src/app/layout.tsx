@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Navbar from "../components/Navbar"; // Import Global Navbar
+import { ThemeProvider } from "next-themes"; // Dark Mode Support
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -12,15 +14,20 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata = {
-  title: "Zhila Beauty - Early Access",
-  description: "Join the global beauty network for MUAs, clinic owners, and brands.",
+export const metadata: Metadata = {
+  title: "Zhila Beauty - The Ultimate Beauty Network",
+  description: "Join the exclusive beauty community for MUAs, Clinics, and Brands. Monetize, Connect & Grow.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className="bg-gray-50">{children}</body>
+      <body className={`${geistSans.variable} ${geistMono.variable} bg-gray-100 dark:bg-gray-900`}>
+        <ThemeProvider attribute="class" defaultTheme="light">
+          <Navbar />
+          <main className="p-6">{children}</main>
+        </ThemeProvider>
+      </body>
     </html>
   );
 }
